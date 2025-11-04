@@ -18,25 +18,7 @@ jobs:
         with:
           submodules: 'recursive'
 
-      - name: Free up space
-        run: |
-          sudo apt-get remove -y '^aspnetcore-.*' || echo "::warning::The command [sudo apt-get remove -y '^aspnetcore-.*'] failed to complete successfully. Proceeding..."
-          sudo apt-get remove -y '^dotnet-.*' --fix-missing || echo "::warning::The command [sudo apt-get remove -y '^dotnet-.*' --fix-missing] failed to complete successfully. Proceeding..."
-          sudo apt-get remove -y 'php.*' --fix-missing || echo "::warning::The command [sudo apt-get remove -y 'php.*' --fix-missing] failed to complete successfully. Proceeding..."
-          sudo apt-get remove -y '^mongodb-.*' --fix-missing || echo "::warning::The command [sudo apt-get remove -y '^mongodb-.*' --fix-missing] failed to complete successfully. Proceeding..."
-          sudo apt-get remove -y '^mysql-.*' --fix-missing || echo "::warning::The command [sudo apt-get remove -y '^mysql-.*' --fix-missing] failed to complete successfully. Proceeding..."
-          sudo apt-get remove -y azure-cli google-chrome-stable firefox powershell libgl1-mesa-dri --fix-missing || echo "::warning::The command [sudo apt-get remove -y azure-cli google-chrome-stable firefox powershell libgl1-mesa-dri --fix-missing] failed to complete successfully. Proceeding..."
-          sudo apt-get remove -y google-cloud-sdk --fix-missing || echo "::debug::The command [sudo apt-get remove -y google-cloud-sdk --fix-missing] failed to complete successfully. Proceeding..."
-          sudo apt-get remove -y google-cloud-cli --fix-missing || echo "::debug::The command [sudo apt-get remove -y google-cloud-cli --fix-missing] failed to complete successfully. Proceeding..."
-          sudo apt-get autoremove -y || echo "::warning::The command [sudo apt-get autoremove -y] failed to complete successfully. Proceeding..."
-          sudo apt-get clean || echo "::warning::The command [sudo apt-get clean] failed to complete successfully. Proceeding..."
-
-      - name: Free disk space (2/3)
-        uses: jlumbroso/free-disk-space@main
-        with:
-          tool-cache: true
-
-      - name: Free disk space (3/3)
+      - name: Free disk space
         uses: rokibhasansagar/slimhub_actions@main
         with:
           retain: 'compiler_cmake'
@@ -80,13 +62,14 @@ jobs:
 
       - name: Zip selected firmware files and folders
         run: |
+          ls out/fw/SM-S938B_EUX/system/system/app/
           zip -r out/fw_to_upload.zip out/fw/SM-S938B_EUX/system/system/etc
           zip -r out/fw_to_upload.zip out/fw/SM-S938B_EUX/system/system/priv-app/Moments
           zip -r out/fw_to_upload.zip out/fw/SM-S938B_EUX/system/system/priv-app/SamsungSmartSuggestions
           zip -r out/fw_to_upload.zip out/fw/SM-S938B_EUX/system/system/priv-app/PhotoEditor_AIFull
           zip -r out/fw_to_upload.zip out/fw/SM-S938B_EUX/system/system/app/LiveTranscribe
           zip -r out/fw_to_upload.zip out/fw/SM-S938B_EUX/system/system/app/HoneyBoard
-          zip -r out/fw_to_upload.zip out/fw/SM-S938B_EUX/system/system/app/SamsungAiCore
+          zip -r out/fw_to_upload.zip out/fw/SM-S938B_EUX/system/system/app/SamsungAi*
           zip -r out/fw_to_upload.zip out/fw/SM-S938B_EUX/product/app/TrichromeLibrary64
           zip -r out/fw_to_upload.zip out/fw/SM-S938B_EUX/product/app/WebViewGoogle64
           zip -r out/fw_to_upload.zip out/fw/SM-S938B_EUX/product/priv-app/AICore
