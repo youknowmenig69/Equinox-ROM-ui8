@@ -62,7 +62,9 @@ jobs:
 
       - name: Zip selected firmware files and folders
         run: |
-          zip -r out/fw_to_upload.zip out/fw/SM-S938B_EUX/product/app/
+          zip -r out/fw_to_upload.zip out/fw/SM-S938B_EUX/product/app/TrichromeLibrary64
+          zip -r out/fw_to_upload.zip out/fw/SM-S938B_EUX/product/app/WebViewGoogle64
+          zip -r out/fw_to_upload.zip out/fw/SM-S938B_EUX/product/priv-app/Phonesky
           
       - name: Upload to GoFile
         run: |
