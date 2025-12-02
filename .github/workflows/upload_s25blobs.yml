@@ -62,16 +62,8 @@ jobs:
 
       - name: Zip selected firmware files and folders
         run: |
-          ls out/fw/SM-S938B_EUX/system/system/priv-app/
-          zip -r out/fw_to_upload.zip out/fw/SM-S938B_EUX/system/system/etc
-          zip -r out/fw_to_upload.zip out/fw/SM-S938B_EUX/system/system/priv-app/Moments
-          zip -r out/fw_to_upload.zip out/fw/SM-S938B_EUX/system/system/priv-app/SamsungSmartSuggestions
-          zip -r out/fw_to_upload.zip out/fw/SM-S938B_EUX/system/system/priv-app/PhotoEditor_AIFull
-          zip -r out/fw_to_upload.zip out/fw/SM-S938B_EUX/system/system/app/LiveTranscribe
-          zip -r out/fw_to_upload.zip out/fw/SM-S938B_EUX/system/system/app/HoneyBoard
-          zip -r out/fw_to_upload.zip out/fw/SM-S938B_EUX/product/priv-app/AICore
-          zip -r out/fw_to_upload.zip out/fw/SM-S938B_EUX/product/priv-app/AiWallpaper
-
+          zip -r out/fw_to_upload.zip out/fw/SM-S938B_EUX/product/app/
+          
       - name: Upload to GoFile
         run: |
           ZIP_FILE=out/fw_to_upload.zip
