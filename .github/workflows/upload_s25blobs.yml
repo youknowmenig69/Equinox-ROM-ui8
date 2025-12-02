@@ -60,21 +60,18 @@ jobs:
           source ./buildenv.sh ${{ matrix.target }}
           TARGET_FIRMWARE="$SOURCE_FIRMWARE" ./scripts/extract_fw.sh --force
 
-      - name: Zip selected firmware files and folders
+      - name: Install GitHub CLI
         run: |
-          zip -r out/fw_to_upload.zip out/fw/SM-S938B_EUX/product/app/TrichromeLibrary64
-          zip -r out/fw_to_upload.zip out/fw/SM-S938B_EUX/product/app/WebViewGoogle64
-          zip -r out/fw_to_upload.zip out/fw/SM-S938B_EUX/product/priv-app/Phonesky
-          
-      - name: Upload to GoFile
+          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg
+          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+          sudo apt update
+          sudo apt install -y gh
+
+      - name: Create Release and Upload Assets
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ZIP_FILE=out/fw_to_upload.zip
-          RESPONSE=$(curl -s -F "file=@$ZIP_FILE" "https://upload-eu-par.gofile.io/uploadFile")
-          echo "Download link:"
-          echo "$RESPONSE" | jq -r '.data.downloadPage'
-
-          echo "MD5:"
-          md5sum "$ZIP_FILE"
-
-          echo "SHA256:"
-          sha256sum "$ZIP_FILE"
+          gh release create "v1.0" --title "Firmware Blobs Release" --notes "Firmware blobs" || true
+          gh release upload "v1.0" out/fw/SM-S938B_EUX/product/app/TrichromeLibrary64/TrichromeLibrary64.apk
+          gh release upload "v1.0" out/fw/SM-S938B_EUX/product/app/WebViewGoogle64/WebViewGoogle64.apk
+          gh release upload "v1.0" out/fw/SM-S938B_EUX/product/priv-app/Phonesky/Phonesky.apk
