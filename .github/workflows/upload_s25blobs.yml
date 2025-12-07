@@ -71,7 +71,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create "v1.0" --title "Firmware Blobs Release" --notes "Firmware blobs" || true
-          gh release upload "v1.0" out/fw/SM-S938B_EUX/product/app/TrichromeLibrary64/TrichromeLibrary64.apk
-          gh release upload "v1.0" out/fw/SM-S938B_EUX/product/app/WebViewGoogle64/WebViewGoogle64.apk
-          gh release upload "v1.0" out/fw/SM-S938B_EUX/product/priv-app/Phonesky/Phonesky.apk
+          gh release create "v2.0" --title "S25 Edge" --notes "S25 Edge Wallpaper-res" || true
+          gh release upload "v2.0" out/fw/SM-S937B_EUX/system/system/priv-app/wallpaper-res/wallpaper-res.apk
