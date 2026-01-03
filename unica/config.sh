@@ -23,9 +23,9 @@ ROM_CODENAME="EquinoX"
 # Source ROM firmware
 case "$TARGET_SINGLE_SYSTEM_IMAGE" in
     "qssi")
-        # Galaxy S25 Edge (One UI 8)
-        SOURCE_CODENAME="psq"
-        SOURCE_FIRMWARE="SM-S937B/EUX/350046320813875"
+        # Galaxy S24 Ultra (One UI 8)
+        SOURCE_CODENAME="temp"
+        SOURCE_FIRMWARE="SM-S928B/EUX/352623851172406"
         SOURCE_EXTRA_FIRMWARES=()
         SOURCE_API_LEVEL=36
         SOURCE_PRODUCT_FIRST_API_LEVEL=35
